@@ -10,3 +10,17 @@ def test_cliente_vip_con_cupon():
 def test_precio_invalido_lanza_excepcion():
     with pytest.raises(ValueError):
         calcular_precio_final(-10, es_vip=False)
+
+def test_cliente_normal_sin_cupon():
+    resultado = calcular_precio_final(100.0, es_vip=False)
+    assert resultado == 100.0
+
+
+def test_cupon_superpromo():
+    resultado = calcular_precio_final(100.0, es_vip=False, cupon="SUPERPROMO")
+    assert resultado == 50.0
+
+
+def test_cupon_oro():
+    resultado = calcular_precio_final(100.0, es_vip=False, cupon="ORO")
+    assert resultado == pytest.approx(70.0)
